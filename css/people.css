@@ -1,0 +1,31 @@
+/* ==========================================================================
+   people.css  -  styles used only by people.html
+   ========================================================================== */
+#people { display: grid; gap: var(--space-6); }
+
+.person { display: grid; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+.person:hover { border-color: var(--line-strong); }
+.person__photo { aspect-ratio: 4 / 5; background: var(--surface-2); overflow: hidden; }
+.person__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.person__body { padding: var(--space-5); display: grid; gap: var(--space-3); align-content: start; }
+.person__name { font-size: var(--step-1); letter-spacing: -0.01em; line-height: 1.2; }
+.person__roles { display: grid; gap: 2px; color: var(--text-muted); font-size: 0.95rem; }
+.person__roles li:first-child { color: var(--accent-glow); font-weight: 500; }
+.person__label { margin-top: var(--space-2); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); }
+.tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.tags li { padding: 0.2rem 0.7rem; border: 1px solid var(--line-strong); border-radius: var(--r-pill); font-size: 0.82rem; color: var(--text-muted); }
+.person__mail { font-size: 0.95rem; overflow-wrap: anywhere; }
+
+.people-grid { display: grid; gap: var(--space-5); }
+@media (min-width: 640px) { .people-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .people-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Featured (Head of Department) */
+.person--featured .person__name { font-size: var(--step-3); }
+.person--featured .person__body { padding: var(--space-6) var(--space-5); align-content: center; gap: var(--space-4); }
+.person--featured .person__roles { font-size: 1.05rem; }
+@media (min-width: 760px) {
+  .person--featured { grid-template-columns: minmax(240px, 340px) 1fr; }
+  .person--featured .person__photo { aspect-ratio: auto; min-height: 100%; }
+  .person--featured .person__body { padding: var(--space-7); }
+}
