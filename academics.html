@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0A0714">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- SEO -->
+  <title>Academics | Mechatronics Engineering, FUT Minna</title>
+  <meta name="description" content="The five-year Mechatronics Engineering programme at FUT Minna, level by level, with course lists, materials and past questions.">
+  <link rel="canonical" href="https://mechatronics-fut.vercel.app/academics.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mechatronics Engineering, FUT Minna">
+  <meta property="og:locale" content="en_NG">
+  <meta property="og:title" content="Academics | Mechatronics Engineering, FUT Minna">
+  <meta property="og:description" content="The five-year programme, level by level: courses, materials and past questions.">
+  <meta property="og:url" content="https://mechatronics-fut.vercel.app/academics.html">
+  <meta property="og:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna, with the department's gear and M mark on a deep purple background">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Academics | Mechatronics Engineering, FUT Minna">
+  <meta name="twitter:description" content="The five-year programme, level by level: courses, materials and past questions.">
+  <meta name="twitter:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
+  <meta name="twitter:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna">
+
+  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/academics.css">
+
+  <script src="/js/site-config.js"></script>
+  <script src="/data/courses.js"></script>
+  <script src="/js/components.js" defer></script>
+  <script src="/js/academics.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">For students</p>
+        <h1>Academics</h1>
+        <p class="lead">The five-year Mechatronics Engineering programme, level by level, with materials and past questions for each.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-bottom: 0">
+      <div class="container">
+        <div class="notice" id="status" role="status"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="overview-title" style="padding-bottom: 0">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Programme overview</p>
+            <h2 id="overview-title">Five years, five levels</h2>
+          </div>
+        </div>
+        <ol class="timeline">
+          <li><span class="timeline__level">100</span><span class="timeline__year">Year 1</span></li>
+          <li><span class="timeline__level">200</span><span class="timeline__year">Year 2</span></li>
+          <li><span class="timeline__level">300</span><span class="timeline__year">Year 3</span></li>
+          <li><span class="timeline__level">400</span><span class="timeline__year">Year 4</span></li>
+          <li><span class="timeline__level">500</span><span class="timeline__year">Year 5</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="courses-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Courses</p>
+            <h2 id="courses-title">Find your courses</h2>
+          </div>
+        </div>
+
+        <div role="search" style="margin-bottom: var(--space-6)">
+          <label class="visually-hidden" for="course-search">Search all courses by code or title</label>
+          <div class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+            <input id="course-search" type="search" placeholder="Search all courses, for example MEE 311 or control" autocomplete="off">
+          </div>
+          <p class="search-count" id="search-count" aria-live="polite"></p>
+        </div>
+
+        <div id="levels"></div>
+        <noscript><div class="notice">The course tables need JavaScript. Please enable it, or contact the department for the course list.</div></noscript>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

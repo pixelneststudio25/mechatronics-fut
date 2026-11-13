@@ -1,0 +1,33 @@
+/* ==========================================================================
+   pages.css  -  bits shared by the inner pages (page header, eyebrow, section head)
+   ========================================================================== */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-soft);
+}
+.eyebrow::before { content: ""; width: 1.75rem; height: 1px; background: var(--accent-soft); }
+
+.page-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: calc(var(--header-h) * -1);
+  padding-top: calc(var(--header-h) + clamp(2.5rem, 2rem + 4vw, 5rem));
+  padding-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(44rem 26rem at 90% 0%, rgba(124, 58, 237, 0.28), transparent 62%),
+    var(--bg-0);
+}
+.page-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 85% 0%, #000, transparent 65%);
+  mask-image: radial-gradient(ellipse at 85% 0%, #000, transparent 65%);
+  opacity: 0.45;
+}
+.page-hero h1 { margin-top: var(--space-4); font-size: var(--step-4); }
+.page-hero p.lead { margin-top: var(--space-4); font-size: var(--step-1); color: var(--text-muted); max-width: 52ch; }
+
+.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-4) var(--space-6); margin-bottom: var(--space-6); }
+.section-head h2 { margin-top: var(--space-3); font-size: var(--step-3); }
