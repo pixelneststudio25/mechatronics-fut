@@ -1,0 +1,32 @@
+{
+  "id": "/",
+  "name": "Mechatronics Engineering, FUT Minna",
+  "short_name": "Mechatronics FUT",
+  "description": "Official website of the Department of Mechatronics Engineering, Federal University of Technology, Minna.",
+  "lang": "en-NG",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0714",
+  "theme_color": "#0A0714",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
