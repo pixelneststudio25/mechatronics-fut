@@ -23,6 +23,7 @@
   <script src="/js/supabase-lite.js"></script>
   <script src="/js/posts-ui.js"></script>
   <script src="/admin/admin.js" defer></script>
+  <script src="/admin/resources.js" defer></script>
 </head>
 <body>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -56,9 +57,15 @@
     <main class="wrap main">
       <div class="pagehead">
         <a class="crumb" href="/news-events.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to News and events</a>
-        <h1>Posts</h1>
-        <p class="muted">Add and edit the news and events shown on the website.</p>
+        <h1>Dashboard</h1>
+        <p class="muted">Manage the news, events and resources shown on the website.</p>
       </div>
+      <div class="seg switch" id="view-switch" role="group" aria-label="Section">
+        <button type="button" data-v="posts" aria-pressed="true">News and events</button>
+        <button type="button" data-v="resources" aria-pressed="false">Resources</button>
+      </div>
+
+      <section id="view-posts">
       <div class="stats" aria-label="Summary">
         <div class="stat stat--live"><span class="stat__n" id="n-live">0</span><span class="stat__l">Live</span></div>
         <div class="stat stat--scheduled"><span class="stat__n" id="n-scheduled">0</span><span class="stat__l">Scheduled</span></div>
@@ -79,6 +86,24 @@
       </div>
       <p class="muted small" id="count" aria-live="polite"></p>
       <ul class="rows" id="rows"></ul>
+      </section>
+
+      <section id="view-resources" hidden>
+        <div class="toolbar">
+          <div class="seg" id="r-filters" role="group" aria-label="Filter resources">
+            <button type="button" data-f="all" aria-pressed="true">All</button>
+            <button type="button" data-f="published" aria-pressed="false">Published</button>
+            <button type="button" data-f="draft" aria-pressed="false">Drafts</button>
+          </div>
+          <div class="toolbar__right">
+            <label class="visually-hidden" for="r-q">Search resources</label>
+            <input class="search" id="r-q" type="search" placeholder="Search by title or course">
+            <button class="btn" type="button" id="r-new"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New resource</button>
+          </div>
+        </div>
+        <p class="muted small" id="r-count" aria-live="polite"></p>
+        <ul class="rows" id="r-rows"></ul>
+      </section>
     </main>
   </div>
 
@@ -141,6 +166,57 @@
       <div class="editor__foot">
         <button class="btn btn--secondary" type="button" id="ed-cancel">Cancel</button>
         <button class="btn" type="submit" id="ed-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Resource editor -->
+  <dialog class="editor editor--narrow" id="r-editor" aria-labelledby="r-ed-title">
+    <form id="r-form" novalidate>
+      <div class="editor__head">
+        <h2 id="r-ed-title">New resource</h2>
+        <button class="icon-btn" type="button" id="r-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="editor__grid">
+        <div class="editor__fields">
+          <div class="field"><label for="rf-title">Title</label><input id="rf-title" maxlength="160" required placeholder="For example: Thermodynamics lecture notes"></div>
+          <div class="two">
+            <div class="field"><label for="rf-kind">Type</label>
+              <select id="rf-kind"><option value="notes">Notes</option><option value="past-questions">Past questions</option><option value="textbook">Textbook</option><option value="timetable">Timetable</option><option value="other">Other</option></select></div>
+            <div class="field"><label for="rf-level">Level</label>
+              <select id="rf-level"><option value="">All levels (general)</option><option value="100">100 level</option><option value="200">200 level</option><option value="300">300 level</option><option value="400">400 level</option><option value="500">500 level</option></select></div>
+          </div>
+          <div class="field"><label for="rf-code">Course code <span class="muted">(optional, for example MEE 311)</span></label><input id="rf-code" maxlength="20"></div>
+          <div class="field"><label for="rf-desc">Short description <span class="muted">(optional)</span></label><textarea id="rf-desc" rows="2" maxlength="300"></textarea></div>
+
+          <fieldset class="seg seg--radio" aria-label="Where is the file">
+            <label><input type="radio" name="source" value="link" checked><span>Paste a link</span></label>
+            <label><input type="radio" name="source" value="upload"><span>Upload a file</span></label>
+          </fieldset>
+          <div class="field" id="rf-link-box">
+            <label for="rf-url">Link</label>
+            <input id="rf-url" type="url" placeholder="https://drive.google.com/...">
+            <p class="muted small">In Google Drive, open the file or folder, click Share, and set General access to "Anyone with the link". Then copy the link and paste it here.</p>
+          </div>
+          <div class="field" id="rf-file-box" hidden>
+            <span class="label">File <span class="muted">(PDF, Word, PowerPoint, Excel or ZIP, up to 25 MB)</span></span>
+            <div class="cover">
+              <span class="small muted" id="rf-file-name">No file chosen</span>
+              <div class="cover__actions">
+                <label class="btn btn--secondary btn--sm" for="rf-file">Choose file</label>
+                <input id="rf-file" type="file" class="visually-hidden" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip">
+              </div>
+            </div>
+          </div>
+
+          <div class="field"><label for="rf-status">Status</label>
+            <select id="rf-status"><option value="published">Published</option><option value="draft">Draft (hidden)</option></select></div>
+          <p class="form-error" id="r-error" role="alert"></p>
+        </div>
+      </div>
+      <div class="editor__foot">
+        <button class="btn btn--secondary" type="button" id="r-cancel">Cancel</button>
+        <button class="btn" type="submit" id="r-save">Save</button>
       </div>
     </form>
   </dialog>
