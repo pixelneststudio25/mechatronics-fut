@@ -31,7 +31,7 @@
   function showLogin(msg) { $("app").hidden = true; $("login").hidden = false; $("login-error").textContent = msg || ""; }
   async function showApp() {
     $("login").hidden = true; $("app").hidden = false;
-    $("who").textContent = (SB.session() || {}).email || "";
+    var em = (SB.session() || {}).email || ""; $("who").textContent = em; $("avatar").textContent = (em.charAt(0) || "A").toUpperCase();
     await refresh();
   }
   $("login-form").addEventListener("submit", async function (e) {
@@ -52,7 +52,13 @@
     try { state.posts = await SB.list(); renderList(); }
     catch (e) { if (e.status === 401) showLogin("Please sign in again."); else toast(e.message, true); }
   }
+  function renderStats() {
+    var n = { live: 0, scheduled: 0, draft: 0 };
+    state.posts.forEach(function (p) { n[statusOf(p)]++; });
+    $("n-live").textContent = n.live; $("n-scheduled").textContent = n.scheduled; $("n-draft").textContent = n.draft;
+  }
   function renderList() {
+    renderStats();
     var q = state.q.toLowerCase();
     var rows = state.posts.filter(function (p) {
       if (state.filter === "news" && p.kind !== "news") return false;
@@ -68,7 +74,7 @@
     $("rows").innerHTML = rows.map(function (p) {
       var st = statusOf(p);
       var when = p.kind === "event" && p.event_start ? "Event on " + U.dateLong(p.event_start) : "Publishes " + U.dateLong(p.publish_at);
-      return '<li class="row"><div class="row__main"><div class="row__sub"><span class="chip chip--' + p.kind + '">' + (p.kind === "event" ? "Event" : "News") + '</span><span class="chip chip--' + st + '">' + STATUS_LABEL[st] + "</span></div>" +
+      return '<li class="row row--' + st + '"><div class="row__main"><div class="row__sub"><span class="chip chip--' + p.kind + '">' + (p.kind === "event" ? "Event" : "News") + '</span><span class="chip chip--' + st + '">' + STATUS_LABEL[st] + "</span></div>" +
         '<span class="row__title">' + U.esc(p.title) + '</span><div class="row__sub"><span>' + U.esc(when) + "</span>" + (p.updated_by ? "<span>Last edited by " + U.esc(p.updated_by) + "</span>" : "") + "</div></div>" +
         '<div class="row__actions">' + (st === "live" ? '<a class="btn btn--secondary" href="/post.html?id=' + encodeURIComponent(p.id) + '" target="_blank" rel="noopener">View</a>' : "") +
         '<button class="btn btn--secondary" type="button" data-act="edit" data-id="' + U.esc(p.id) + '">Edit</button>' +

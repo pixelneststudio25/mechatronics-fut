@@ -45,16 +45,25 @@
   <div id="app" hidden>
     <header class="bar">
       <div class="wrap bar__inner">
-        <a class="bar__brand" href="/admin/"><img src="/images/logo-sm.webp" alt="" width="42" height="28"><span>News and events admin</span></a>
+        <a class="bar__brand" href="/admin/"><img src="/images/logo-sm.webp" alt="" width="42" height="28"><span class="bar__name">News and events <b>admin</b></span></a>
         <div class="bar__right">
-          <a class="small" href="/news-events.html" target="_blank" rel="noopener">View site</a>
-          <span class="muted small" id="who"></span>
+          <span class="user"><span class="avatar" id="avatar" aria-hidden="true">A</span><span class="user__email" id="who"></span></span>
           <button class="btn btn--secondary btn--sm" type="button" id="signout">Sign out</button>
         </div>
       </div>
     </header>
 
     <main class="wrap main">
+      <div class="pagehead">
+        <a class="crumb" href="/news-events.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to News and events</a>
+        <h1>Posts</h1>
+        <p class="muted">Add and edit the news and events shown on the website.</p>
+      </div>
+      <div class="stats" aria-label="Summary">
+        <div class="stat stat--live"><span class="stat__n" id="n-live">0</span><span class="stat__l">Live</span></div>
+        <div class="stat stat--scheduled"><span class="stat__n" id="n-scheduled">0</span><span class="stat__l">Scheduled</span></div>
+        <div class="stat stat--draft"><span class="stat__n" id="n-draft">0</span><span class="stat__l">Drafts</span></div>
+      </div>
       <div class="toolbar">
         <div class="seg" id="filters" role="group" aria-label="Filter">
           <button type="button" data-f="all" aria-pressed="true">All</button>
@@ -65,7 +74,7 @@
         <div class="toolbar__right">
           <label class="visually-hidden" for="q">Search by title</label>
           <input class="search" id="q" type="search" placeholder="Search by title">
-          <button class="btn" type="button" id="new">New post</button>
+          <button class="btn" type="button" id="new"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New post</button>
         </div>
       </div>
       <p class="muted small" id="count" aria-live="polite"></p>
