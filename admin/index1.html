@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0A0714">
+  <title>Admin | Mechatronics Engineering, FUT Minna</title>
+
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/posts.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/supabase-lite.js"></script>
+  <script src="/js/posts-ui.js"></script>
+  <script src="/admin/admin.js" defer></script>
+</head>
+<body>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Sign in -->
+  <main class="login" id="login">
+    <form class="login__card" id="login-form" autocomplete="on">
+      <img src="/images/logo-sm.webp" alt="" width="57" height="38">
+      <h1>Admin sign in</h1>
+      <p class="muted">Manage news and events for the Mechatronics Engineering website.</p>
+      <div class="field"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="l-pass">Password</label><input id="l-pass" name="password" type="password" autocomplete="current-password" required></div>
+      <p class="form-error" id="login-error" role="alert"></p>
+      <button class="btn" type="submit" id="login-btn">Sign in</button>
+      <p class="muted small">Only invited admins can sign in. <a href="/">Back to the website</a></p>
+    </form>
+  </main>
+
+  <!-- Dashboard -->
+  <div id="app" hidden>
+    <header class="bar">
+      <div class="wrap bar__inner">
+        <a class="bar__brand" href="/admin/"><img src="/images/logo-sm.webp" alt="" width="42" height="28"><span>News and events admin</span></a>
+        <div class="bar__right">
+          <a class="small" href="/news-events.html" target="_blank" rel="noopener">View site</a>
+          <span class="muted small" id="who"></span>
+          <button class="btn btn--secondary btn--sm" type="button" id="signout">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap main">
+      <div class="toolbar">
+        <div class="seg" id="filters" role="group" aria-label="Filter">
+          <button type="button" data-f="all" aria-pressed="true">All</button>
+          <button type="button" data-f="news" aria-pressed="false">News</button>
+          <button type="button" data-f="event" aria-pressed="false">Events</button>
+          <button type="button" data-f="draft" aria-pressed="false">Drafts</button>
+        </div>
+        <div class="toolbar__right">
+          <label class="visually-hidden" for="q">Search by title</label>
+          <input class="search" id="q" type="search" placeholder="Search by title">
+          <button class="btn" type="button" id="new">New post</button>
+        </div>
+      </div>
+      <p class="muted small" id="count" aria-live="polite"></p>
+      <ul class="rows" id="rows"></ul>
+    </main>
+  </div>
+
+  <!-- Editor -->
+  <dialog class="editor" id="editor" aria-labelledby="ed-title">
+    <form id="ed-form" novalidate>
+      <div class="editor__head">
+        <h2 id="ed-title">New post</h2>
+        <button class="icon-btn" type="button" id="ed-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="editor__grid">
+        <div class="editor__fields">
+          <fieldset class="seg seg--radio" aria-label="Type">
+            <label><input type="radio" name="kind" value="news" checked><span>News</span></label>
+            <label><input type="radio" name="kind" value="event"><span>Event</span></label>
+          </fieldset>
+
+          <div class="field"><label for="f-title">Title</label><input id="f-title" maxlength="140" required></div>
+          <div class="field"><label for="f-summary">Short summary <span class="muted">(shown on cards, up to 280 characters)</span></label><textarea id="f-summary" rows="2" maxlength="280"></textarea></div>
+
+          <div id="event-fields" hidden class="box">
+            <div class="two">
+              <div class="field"><label for="f-start">Starts</label><input id="f-start" type="datetime-local"></div>
+              <div class="field"><label for="f-end">Ends <span class="muted">(optional)</span></label><input id="f-end" type="datetime-local"></div>
+            </div>
+            <div class="field"><label for="f-venue">Venue</label><input id="f-venue" maxlength="140"></div>
+          </div>
+
+          <div class="field"><label for="f-body">Full details <span class="muted">(leave a blank line between paragraphs)</span></label><textarea id="f-body" rows="8" maxlength="8000"></textarea></div>
+          <div class="field"><label for="f-link">Link <span class="muted">(registration or more information, optional)</span></label><input id="f-link" type="url" placeholder="https://"></div>
+
+          <div class="field">
+            <span class="label">Cover image <span class="muted">(optional, resized and compressed automatically)</span></span>
+            <div class="cover" id="cover-box">
+              <img id="cover-img" alt="" hidden>
+              <div class="cover__actions">
+                <label class="btn btn--secondary btn--sm" for="f-cover">Choose image</label>
+                <input id="f-cover" type="file" accept="image/jpeg,image/png,image/webp" class="visually-hidden">
+                <button class="btn btn--secondary btn--sm" type="button" id="cover-remove" hidden>Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="two">
+            <div class="field"><label for="f-status">Status</label>
+              <select id="f-status"><option value="draft">Draft (hidden)</option><option value="published">Published</option></select>
+            </div>
+            <div class="field"><label for="f-publish">Publish date <span class="muted">(a future date schedules it)</span></label><input id="f-publish" type="datetime-local"></div>
+          </div>
+
+          <p class="form-error" id="ed-error" role="alert"></p>
+        </div>
+
+        <aside class="editor__preview" aria-label="Preview">
+          <p class="label">Preview</p>
+          <div id="preview"></div>
+          <p class="muted small">This is how the card looks on the website.</p>
+        </aside>
+      </div>
+      <div class="editor__foot">
+        <button class="btn btn--secondary" type="button" id="ed-cancel">Cancel</button>
+        <button class="btn" type="submit" id="ed-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Confirm -->
+  <dialog class="confirm" id="confirm" aria-labelledby="cf-title">
+    <form method="dialog">
+      <h2 id="cf-title">Delete this post?</h2>
+      <p class="muted" id="cf-text"></p>
+      <div class="editor__foot">
+        <button class="btn btn--secondary" value="cancel">Cancel</button>
+        <button class="btn btn--danger" value="ok">Delete</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
