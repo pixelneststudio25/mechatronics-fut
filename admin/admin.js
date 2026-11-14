@@ -50,7 +50,7 @@
   /* ---------- list ---------- */
   async function refresh() {
     try { state.posts = await SB.list(); renderList(); }
-    catch (e) { if (e.status === 401 || e.status === 403) showLogin("Please sign in again."); else toast(e.message, true); }
+    catch (e) { if (e.status === 401) showLogin("Please sign in again."); else toast(e.message, true); }
   }
   function renderList() {
     var q = state.q.toLowerCase();
