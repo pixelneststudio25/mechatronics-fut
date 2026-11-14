@@ -61,22 +61,23 @@
   }
 
   /* ----- posts (admin) ----- */
-  async function rest(method, query, body) {
+  async function rest(method, query, body, table) {
     var t = await token();
     if (!t) { var err = new Error("Your session has ended. Please sign in again."); err.status = 401; throw err; }
-    return req("/rest/v1/posts" + (query || ""), { method: method, headers: headers(t, method === "GET" ? {} : { Prefer: "return=representation" }), body: body ? JSON.stringify(body) : undefined });
+    return req("/rest/v1/" + (table || "posts") + (query || ""), { method: method, headers: headers(t, method === "GET" ? {} : { Prefer: "return=representation" }), body: body ? JSON.stringify(body) : undefined });
   }
   function list() { return rest("GET", "?select=*&order=updated_at.desc&limit=500"); }
   function create(p) { return rest("POST", "", p).then(function (r) { return r[0]; }); }
   function update(id, p) { return rest("PATCH", "?id=eq." + encodeURIComponent(id), p).then(function (r) { return r[0]; }); }
   function remove(id) { return rest("DELETE", "?id=eq." + encodeURIComponent(id)); }
 
-  async function upload(blob, path) {
+  async function upload(blob, path, bucket) {
+    bucket = bucket || "media";
     var t = await token();
     if (!t) throw new Error("Your session has ended. Please sign in again.");
-    var r = await fetch(C.url + "/storage/v1/object/media/" + path, { method: "POST", headers: { apikey: C.anonKey, Authorization: "Bearer " + t, "Content-Type": blob.type, "x-upsert": "false" }, body: blob });
+    var r = await fetch(C.url + "/storage/v1/object/" + bucket + "/" + path, { method: "POST", headers: { apikey: C.anonKey, Authorization: "Bearer " + t, "Content-Type": blob.type, "x-upsert": "false" }, body: blob });
     if (!r.ok) { var d = {}; try { d = await r.json(); } catch (e) {} throw new Error(d.message || d.error || "Image upload failed (" + r.status + ")"); }
-    return C.url + "/storage/v1/object/public/media/" + path;
+    return C.url + "/storage/v1/object/public/" + bucket + "/" + path;
   }
 
   /* ----- posts (public) ----- */
@@ -96,5 +97,23 @@
     return r && r[0] ? r[0] : null;
   }
 
-  window.SB = { signIn: signIn, signOut: signOut, session: load, isAdmin: isAdmin, list: list, create: create, update: update, remove: remove, upload: upload, publicList: publicList, publicGet: publicGet };
+  /* ----- resources ----- */
+  var RES_KEY = "mech_resources_cache_v1";
+  function resList() { return rest("GET", "?select=*&order=updated_at.desc&limit=1000", null, "resources"); }
+  function resCreate(p) { return rest("POST", "", p, "resources").then(function (r) { return r[0]; }); }
+  function resUpdate(id, p) { return rest("PATCH", "?id=eq." + encodeURIComponent(id), p, "resources").then(function (r) { return r[0]; }); }
+  function resRemove(id) { return rest("DELETE", "?id=eq." + encodeURIComponent(id), null, "resources"); }
+  async function publicResources() {
+    try {
+      var data = await req("/rest/v1/resources?select=id,title,description,level,course_code,kind,url,file_name,updated_at&order=level.asc.nullsfirst,course_code.asc.nullslast,title.asc&limit=1000", { headers: headers() });
+      try { localStorage.setItem(RES_KEY, JSON.stringify({ at: Date.now(), data: data })); } catch (e) {}
+      return { data: data, cached: false };
+    } catch (e) {
+      var c = null; try { c = JSON.parse(localStorage.getItem(RES_KEY)); } catch (x) {}
+      if (c && c.data) return { data: c.data, cached: true };
+      throw e;
+    }
+  }
+
+  window.SB = { signIn: signIn, signOut: signOut, session: load, isAdmin: isAdmin, list: list, create: create, update: update, remove: remove, upload: upload, publicList: publicList, publicGet: publicGet, resList: resList, resCreate: resCreate, resUpdate: resUpdate, resRemove: resRemove, publicResources: publicResources };
 })();

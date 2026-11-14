@@ -1,3 +1,15 @@
+/* Theme: apply the saved choice before the page paints, so there is no flash.
+   (This file loads first on every public page. The toggle lives in components.js.) */
+(function () {
+  try {
+    if (localStorage.getItem("mech_theme") === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute("content", "#FAF9FF");
+    }
+  } catch (e) {}
+})();
+
 /* ==========================================================================
    site-config.js  -  the one file to edit for navigation, contact details
    and social links. components.js builds the header, menu and footer from it.
@@ -30,16 +42,16 @@ window.SITE = {
 
   /* Extra pages. Set `live: true` once the page exists. Links with live: false are not shown. */
   more: [
-    { label: "Labs and facilities", href: "/labs.html", live: false },
-    { label: "Resources", href: "/resources.html", live: false },
-    { label: "Gallery", href: "/gallery.html", live: false },
-    { label: "Partner with us", href: "/partner.html", live: false }
+    { label: "Labs and facilities", href: "/labs.html", live: true },
+    { label: "Resources", href: "/resources.html", live: true },
+    { label: "Gallery", href: "/gallery.html", live: true },
+    { label: "Partner with us", href: "/partner.html", live: true }
   ],
 
   /* Small legal links in the footer. Same rule: live: true once the page exists. */
   legal: [
-    { label: "Privacy", href: "/privacy.html", live: false },
-    { label: "Accessibility", href: "/accessibility.html", live: false }
+    { label: "Privacy", href: "/privacy.html", live: true },
+    { label: "Accessibility", href: "/accessibility.html", live: true }
   ],
 
   /* Icons available: facebook, x, linkedin, instagram */

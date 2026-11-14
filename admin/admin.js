@@ -15,6 +15,7 @@
     t.textContent = msg; t.className = "toast show" + (isErr ? " error" : "");
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.className = "toast"; }, 3800);
   }
+  function busy(b, on) { b.classList.toggle("is-loading", on); b.setAttribute("aria-busy", on ? "true" : "false"); b.disabled = on; }
   function toLocalInput(iso) {
     if (!iso) return "";
     var d = new Date(iso); if (isNaN(d)) return "";
@@ -33,17 +34,18 @@
     $("login").hidden = true; $("app").hidden = false;
     var em = (SB.session() || {}).email || ""; $("who").textContent = em; $("avatar").textContent = (em.charAt(0) || "A").toUpperCase();
     await refresh();
+    if (window.AdminResources) window.AdminResources.refresh();
   }
   $("login-form").addEventListener("submit", async function (e) {
     e.preventDefault();
-    var btn = $("login-btn"); btn.disabled = true; btn.textContent = "Signing in...";
+    var btn = $("login-btn"); busy(btn, true);
     $("login-error").textContent = "";
     try {
       await SB.signIn($("l-email").value.trim(), $("l-pass").value);
       if (!(await SB.isAdmin())) { await SB.signOut(); $("login-error").textContent = "This account does not have admin access."; }
       else { $("l-pass").value = ""; await showApp(); }
     } catch (err) { $("login-error").textContent = err.message === "Invalid login credentials" ? "Wrong email or password." : err.message; }
-    btn.disabled = false; btn.textContent = "Sign in";
+    busy(btn, false);
   });
   $("signout").addEventListener("click", async function () { await SB.signOut(); showLogin(); });
 
@@ -94,7 +96,8 @@
     if (!p) return;
     if (b.getAttribute("data-act") === "edit") openEditor(p);
     else if (await confirmDelete(p)) {
-      try { await SB.remove(p.id); toast("Post deleted."); await refresh(); } catch (err) { toast(err.message, true); }
+      busy(b, true);
+      try { await SB.remove(p.id); toast("Post deleted."); await refresh(); } catch (err) { busy(b, false); toast(err.message, true); }
     }
   });
 
@@ -197,7 +200,7 @@
     if (f.link && !/^https?:\/\//i.test(f.link)) { err.textContent = "The link must start with https://"; $("f-link").focus(); return; }
     if (!f.publish_at) f.publish_at = new Date().toISOString();
 
-    var btn = $("ed-save"); btn.disabled = true; btn.textContent = "Saving...";
+    var btn = $("ed-save"); busy(btn, true);
     try {
       var cover = state.editing ? state.editing.cover_url : null;
       if (state.coverRemoved) cover = null;
@@ -214,8 +217,19 @@
       if (ex.status === 401) { ed.close(); showLogin("Please sign in again."); }
       else err.textContent = ex.message;
     }
-    btn.disabled = false; btn.textContent = "Save";
+    busy(btn, false);
   });
+
+  /* ---------- switch between News and events / Resources ---------- */
+  $("view-switch").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-v]"); if (!b) return;
+    var v = b.getAttribute("data-v");
+    Array.prototype.forEach.call($("view-switch").querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    $("view-posts").hidden = v !== "posts"; $("view-resources").hidden = v !== "resources";
+  });
+
+  /* shared with admin/resources.js */
+  window.AdminKit = { toast: toast, busy: busy, showLogin: showLogin, confirmDelete: confirmDelete, toLocalInput: toLocalInput };
 
   /* ---------- start ---------- */
   if (SB.session()) SB.isAdmin().then(function (ok) { if (ok) showApp(); else showLogin(); });

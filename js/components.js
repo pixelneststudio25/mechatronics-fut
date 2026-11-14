@@ -63,9 +63,15 @@
         '<nav class="primary-nav" aria-label="Primary"><ul>' +
           items.map(function (n) { return '<li><a href="' + esc(n.href) + '"' + current(n.href) + ">" + esc(n.label) + "</a></li>"; }).join("") +
         "</ul></nav>" +
-        '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">' +
-          '<span class="menu-toggle__bars" aria-hidden="true"></span>' +
-        "</button>" +
+        '<div class="header-actions">' +
+          '<button class="theme-toggle" type="button" aria-label="Switch to light theme">' +
+            '<svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></svg>' +
+            '<svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>' +
+          "</button>" +
+          '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">' +
+            '<span class="menu-toggle__bars" aria-hidden="true"></span>' +
+          "</button>" +
+        "</div>" +
       "</div>";
     return el;
   }
@@ -131,10 +137,41 @@
         "</div>" +
         '<div class="site-footer__bottom">' +
           "<span>&copy; " + new Date().getFullYear() + " " + esc(S.name) + ", " + esc(short) + ". Maintained by " + esc(S.maintainedBy) + ".</span>" +
-          (legal.length ? "<span>" + legal.map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + "</a>"; }).join(" &middot; ") + "</span>" : "") +
+          "<span>" + legal.map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + "</a>"; }).concat(['<a href="/admin/">Admin sign in</a>']).join(" &middot; ") + "</span>" + '<button type="button" class="linkbtn" id="install-app" hidden>Install app</button>' +
         "</div>" +
       "</div>";
     return el;
+  }
+
+  /* ---------- app features: offline worker, install button, offline notice ---------- */
+  var installEvent = null;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault(); installEvent = e;
+    var b = document.getElementById("install-app"); if (b) b.hidden = false;
+  });
+  window.addEventListener("appinstalled", function () {
+    installEvent = null;
+    var b = document.getElementById("install-app"); if (b) b.hidden = true;
+  });
+  function initPwa() {
+    if ("serviceWorker" in navigator && location.protocol === "https:") {
+      window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () {}); });
+    }
+    var btn = document.getElementById("install-app");
+    if (btn) {
+      btn.hidden = !installEvent;
+      btn.addEventListener("click", function () {
+        if (!installEvent) return;
+        installEvent.prompt();
+        installEvent.userChoice.then(function () { installEvent = null; btn.hidden = true; });
+      });
+    }
+    var note = document.createElement("div");
+    note.className = "net-banner"; note.setAttribute("role", "status"); note.hidden = true;
+    note.textContent = "You are offline. Showing saved content.";
+    document.body.appendChild(note);
+    function sync() { note.hidden = navigator.onLine !== false; }
+    window.addEventListener("online", sync); window.addEventListener("offline", sync); sync();
   }
 
   /* ---------- mount ---------- */
@@ -153,6 +190,26 @@
       skip.className = "skip-link"; skip.href = "#main"; skip.textContent = "Skip to main content";
       document.body.prepend(skip);
     }
+
+    /* light / dark theme */
+    var themeBtn = header.querySelector(".theme-toggle");
+    function themeNow() { return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+    function themeSync() {
+      var light = themeNow() === "light";
+      themeBtn.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute("content", light ? "#FAF9FF" : "#0A0714");
+    }
+    themeBtn.addEventListener("click", function () {
+      var next = themeNow() === "light" ? "dark" : "light";
+      var root = document.documentElement;
+      root.classList.add("theme-anim");
+      if (next === "light") root.setAttribute("data-theme", "light"); else root.removeAttribute("data-theme");
+      try { localStorage.setItem("mech_theme", next); } catch (e) {}
+      themeSync();
+      setTimeout(function () { root.classList.remove("theme-anim"); }, 450);
+    });
+    themeSync();
 
     /* header gets a glass background after scrolling */
     function onScroll() { header.setAttribute("data-scrolled", window.scrollY > 8 ? "true" : "false"); }
@@ -211,6 +268,8 @@
     var mq = window.matchMedia("(min-width: 960px)");
     var onMq = function (e) { if (e.matches) close(false); };
     if (mq.addEventListener) mq.addEventListener("change", onMq); else mq.addListener(onMq);
+
+    initPwa();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount);

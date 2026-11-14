@@ -8,6 +8,8 @@
   var $ = function (id) { return document.getElementById(id); };
   function esc(v) { return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
+  function busy(b, on) { b.classList.toggle("is-loading", on); b.setAttribute("aria-busy", on ? "true" : "false"); b.disabled = on; }
+
   /* ----- contact details ----- */
   var d = '<h2>Department details</h2><dl style="display:grid;gap:var(--space-4);margin:0">';
   if (S.email) d += '<div class="detail"><dt>Email</dt><dd><a href="mailto:' + esc(S.email) + '">' + esc(S.email) + "</a></dd></div>";
@@ -51,7 +53,7 @@
     var last = 0; try { last = Number(localStorage.getItem("mech_last_msg")) || 0; } catch (x) {}
     if (Date.now() - last < 30000) { fail("Please wait a moment before sending another message."); return; }
 
-    var btn = $("send"); btn.disabled = true; btn.textContent = "Sending...";
+    var btn = $("send"); busy(btn, true);
     try {
       var topic = $("c-topic").value, name = $("c-name").value.trim();
       var res = await fetch("https://api.web3forms.com/submit", {
@@ -69,7 +71,7 @@
     } catch (err) {
       fail("Sorry, your message could not be sent. Please check your connection and try again.");
     }
-    btn.disabled = false; btn.textContent = "Send message";
+    busy(btn, false);
   });
 
   function showSent() {

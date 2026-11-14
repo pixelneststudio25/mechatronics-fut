@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0A0714">
+  <meta name="color-scheme" content="dark light">
+
+  <title>You are offline | Mechatronics Engineering, FUT Minna</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/error.css">
+
+  <script src="/js/site-config.js"></script>
+  <script src="/js/components.js" defer></script>
+  <script src="/js/offline.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="lost" aria-labelledby="off-title">
+      <div class="container lost__inner">
+        <p class="lost__code" aria-hidden="true" style="font-size: clamp(3rem, 2rem + 8vw, 6rem)">Offline</p>
+        <p class="eyebrow">No connection</p>
+        <h1 id="off-title">You are offline</h1>
+        <p class="lost__text">This page is not saved on your device yet. Check your connection and try again, or open a page you have visited before.</p>
+        <div class="lost__actions">
+          <button class="btn" type="button" id="retry">Try again</button>
+        </div>
+        <ul class="lost__links">
+          <li><a href="/"><strong>Home</strong><span>Back to the start</span></a></li>
+          <li><a href="/academics.html"><strong>Academics</strong><span>Courses, level by level</span></a></li>
+          <li><a href="/resources.html"><strong>Resources</strong><span>Notes and past questions</span></a></li>
+          <li><a href="/news-events.html"><strong>News and events</strong><span>Announcements</span></a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

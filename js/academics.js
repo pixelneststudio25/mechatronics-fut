@@ -37,8 +37,8 @@
 
   /* ----- tabs and panels ----- */
   function btn(label, href) {
-    if (href) return '<a class="btn btn--secondary btn--sm" href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' + label + "</a>";
-    return '<span class="btn btn--secondary btn--sm btn--soon" aria-disabled="true">' + label + " (coming soon)</span>";
+    var internal = href.charAt(0) === "/";
+    return '<a class="btn btn--secondary btn--sm" href="' + esc(href) + '"' + (internal ? "" : ' target="_blank" rel="noopener noreferrer"') + ">" + label + "</a>";
   }
   function semesterHtml(s, lvl) {
     var head = '<h4>' + esc(s.name) + (s.courses.length ? "<small>" + s.courses.length + " courses, " + units(s.courses) + " units</small>" : "") + "</h4>";
@@ -58,7 +58,7 @@
   var panelsHtml = D.levels.map(function (l) {
     return '<div class="panel" role="tabpanel" id="panel-' + l.level + '" aria-labelledby="tab-' + l.level + '" tabindex="0" hidden>' +
       '<div class="panel__head"><h3>' + l.level + ' Level <span style="color:var(--text-muted);font-weight:500">/ Year ' + l.year + '</span></h3><div class="panel__links">' +
-      btn("Materials", l.materials) + btn("Past questions", l.pastQuestions) + "</div></div>" +
+      btn("Materials", l.materials || "/resources.html?level=" + l.level) + btn("Past questions", l.pastQuestions || "/resources.html?level=" + l.level + "&kind=past-questions") + "</div></div>" +
       l.semesters.map(function (s) { return semesterHtml(s, l.level); }).join("") + "</div>";
   }).join("");
 

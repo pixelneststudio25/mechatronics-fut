@@ -85,3 +85,76 @@
 @media (min-width: 960px) {
   :root { --header-h: 76px; }
 }
+
+
+/* ==========================================================================
+   Light theme  -  applied when <html data-theme="light"> is set
+   (chosen with the sun/moon button in the header; saved in the browser).
+   Dark stays the default. Everything below only overrides colours.
+   ========================================================================== */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg-0: #faf9ff;
+  --bg-1: #f1eefb;
+  --surface: #ffffff;
+  --surface-2: #f4f1fd;
+  --surface-3: #e9e3f8;
+  --line: rgba(75, 0, 130, 0.12);
+  --line-strong: rgba(75, 0, 130, 0.28);
+  --accent-strong: #6d28d9;
+  --accent-strong-hover: #5b21b6;
+  --accent: #7c3aed;
+  --accent-soft: #6d28d9;
+  --accent-glow: #5b21b6;
+  --signal: #b45309;
+  --text: #1a1230;
+  --text-muted: #4b4566;
+  --text-faint: #6b6585;
+}
+
+/* Parts that stay dark in the light theme (photos, the viewer, brand panels) */
+[data-theme="light"] :is(.partner, .support, .card--accent, .lb, .hero__photo) {
+  color-scheme: dark;
+  --bg-0: #0a0714; --bg-1: #110b1f; --surface: #1a1230; --surface-2: #231843;
+  --line: rgba(167, 139, 250, 0.16); --line-strong: rgba(167, 139, 250, 0.34);
+  --accent-soft: #a78bfa; --accent-glow: #c4b5fd; --signal: #ffc107;
+  --text: #f4f1ff; --text-muted: #b3accb; --text-faint: #8a82a8;
+}
+
+/* Header */
+[data-theme="light"] .site-header[data-scrolled="true"] { background: rgba(250, 249, 255, 0.86); }
+[data-theme="light"] .menu-open .site-header[data-scrolled="true"] { background: transparent; }
+
+/* Buttons */
+[data-theme="light"] .btn--secondary { background: rgba(75, 0, 130, 0.04); }
+[data-theme="light"] .btn--signal { background: var(--signal); color: #fff; box-shadow: 0 10px 26px -12px rgba(180, 83, 9, 0.6); }
+[data-theme="light"] .btn--signal:hover { background: #92400e; color: #fff; }
+[data-theme="light"] :is(.partner, .support, .card--accent) .btn--signal { color: #1a1230; }
+[data-theme="light"] :is(.partner, .support, .card--accent) .btn--signal:hover { background: #ffd24d; color: #1a1230; }
+[data-theme="light"] .skip-link { color: #fff; }
+
+/* Home hero */
+[data-theme="light"] .hero__lead { color: var(--text-muted); }
+[data-theme="light"] .hero h1 em { background: linear-gradient(100deg, #6d28d9 10%, #7c3aed 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+[data-theme="light"] .hero__chip { background: rgba(75, 0, 130, 0.05); }
+[data-theme="light"] .hero__chip:hover { background: rgba(75, 0, 130, 0.09); }
+[data-theme="light"] .hero__actions .btn--secondary { background: rgba(75, 0, 130, 0.05); border-color: rgba(75, 0, 130, 0.3); }
+[data-theme="light"] .hero__actions .btn--secondary:hover { background: rgba(75, 0, 130, 0.1); border-color: var(--accent); }
+[data-theme="light"] .hero__photo figcaption { color: #fff; }
+
+/* Forms */
+[data-theme="light"] :is(input, textarea, select) { background: rgba(75, 0, 130, 0.04); }
+[data-theme="light"] :is(input, textarea, select):focus { background: rgba(75, 0, 130, 0.06); }
+[data-theme="light"] select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b4566' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+[data-theme="light"] :is(.form-error, .field-error) { color: #b91c1c; }
+[data-theme="light"] :is(input, textarea)[aria-invalid="true"] { border-color: #dc2626; }
+
+/* Success and status colours that were tuned for dark */
+[data-theme="light"] .badge--ok { background: rgba(22, 163, 74, 0.12); color: #15803d; }
+[data-theme="light"] .sent__icon { background: rgba(22, 163, 74, 0.12); color: #15803d; }
+[data-theme="light"] .badges svg { stroke: #15803d; background: rgba(22, 163, 74, 0.12); }
+
+/* Smooth switch (the class is added for a moment when the button is pressed) */
+html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease, stroke 0.35s ease !important;
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0A0714">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- SEO -->
+  <title>Resources | Mechatronics Engineering, FUT Minna</title>
+  <meta name="description" content="Lecture notes, past questions, textbooks and timetables for Mechatronics Engineering students at FUT Minna, by level and course.">
+  <link rel="canonical" href="https://mechatronics-fut.vercel.app/resources.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mechatronics Engineering, FUT Minna">
+  <meta property="og:locale" content="en_NG">
+  <meta property="og:title" content="Resources | Mechatronics Engineering, FUT Minna">
+  <meta property="og:description" content="Notes, past questions, textbooks and timetables for Mechatronics Engineering students.">
+  <meta property="og:url" content="https://mechatronics-fut.vercel.app/resources.html">
+  <meta property="og:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna, with the department's gear and M mark on a deep purple background">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Resources | Mechatronics Engineering, FUT Minna">
+  <meta name="twitter:description" content="Notes, past questions, textbooks and timetables for Mechatronics Engineering students.">
+  <meta name="twitter:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
+  <meta name="twitter:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna">
+
+  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/resources.css">
+
+  <script src="/js/site-config.js"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/supabase-lite.js"></script>
+  <script src="/js/posts-ui.js"></script>
+  <script src="/js/components.js" defer></script>
+  <script src="/js/resources.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">For students</p>
+        <h1>Resources</h1>
+        <p class="lead">Lecture notes, past questions, textbooks and timetables, organised by level and course.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <div class="rfilters">
+          <div class="fgroup">
+            <p class="fgroup__label" id="lbl-level">Level</p>
+            <div class="chips" id="f-level" role="group" aria-labelledby="lbl-level">
+              <button type="button" data-v="all" aria-pressed="true">All</button>
+              <button type="button" data-v="100" aria-pressed="false">100</button>
+              <button type="button" data-v="200" aria-pressed="false">200</button>
+              <button type="button" data-v="300" aria-pressed="false">300</button>
+              <button type="button" data-v="400" aria-pressed="false">400</button>
+              <button type="button" data-v="500" aria-pressed="false">500</button>
+              <button type="button" data-v="general" aria-pressed="false">General</button>
+            </div>
+          </div>
+          <div class="fgroup">
+            <p class="fgroup__label" id="lbl-kind">Type</p>
+            <div class="chips" id="f-kind" role="group" aria-labelledby="lbl-kind">
+              <button type="button" data-v="all" aria-pressed="true">All</button>
+              <button type="button" data-v="notes" aria-pressed="false">Notes</button>
+              <button type="button" data-v="past-questions" aria-pressed="false">Past questions</button>
+              <button type="button" data-v="textbook" aria-pressed="false">Textbooks</button>
+              <button type="button" data-v="timetable" aria-pressed="false">Timetables</button>
+              <button type="button" data-v="other" aria-pressed="false">Other</button>
+            </div>
+          </div>
+          <div class="fgroup fgroup--search">
+            <label class="fgroup__label" for="r-search">Search</label>
+            <input id="r-search" type="search" placeholder="Course code or title, for example MEE 311" autocomplete="off">
+          </div>
+        </div>
+        <p class="rcount" id="r-count" aria-live="polite"></p>
+
+        <div id="r-list" aria-live="polite">
+          <div class="rgrid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+        </div>
+        <noscript><p>The resources list needs JavaScript. Please enable it to see it.</p></noscript>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

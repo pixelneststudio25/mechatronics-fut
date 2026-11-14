@@ -227,3 +227,40 @@
 @media (min-width: 768px) {
   .menu__side > :first-child { padding-top: 0; border-top: 0; }
 }
+
+/* ---------- Loading spinner (add .is-loading to any .btn) ---------- */
+.btn { --spin: #fff; }
+.btn--secondary { --spin: var(--accent-glow); }
+.btn--signal { --spin: #1a1230; }
+.btn.is-loading { position: relative; color: transparent !important; pointer-events: none; }
+.btn.is-loading::after { opacity: 0 !important; }
+.btn.is-loading > * { opacity: 0; }
+.btn.is-loading::before {
+  content: ""; position: absolute; inset: 0; margin: auto; width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--spin) 28%, transparent); border-top-color: var(--spin);
+  animation: btn-spin 0.7s linear infinite;
+}
+.btn.is-loading[disabled] { opacity: 1; }
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn.is-loading::before { animation-duration: 1.6s !important; animation-iteration-count: infinite !important; }
+}
+
+/* ---------- App features ---------- */
+.linkbtn { padding: 0.25rem 0; border: 0; background: none; color: var(--accent-soft); font: inherit; font-size: inherit; text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; }
+.linkbtn:hover { color: var(--accent-glow); }
+.linkbtn[hidden] { display: none; }
+.net-banner { position: fixed; left: 50%; bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); z-index: 150; transform: translateX(-50%); max-width: min(92vw, 420px); padding: 0.65rem 1.1rem; border-radius: var(--r-pill); background: var(--surface-3); border: 1px solid var(--signal); color: var(--text); font-size: 0.9rem; text-align: center; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5); }
+.net-banner[hidden] { display: none; }
+
+/* ---------- Theme toggle ---------- */
+.header-actions { display: flex; align-items: center; gap: var(--space-1); }
+.theme-toggle { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line-strong); border-radius: 50%; background: rgba(255, 255, 255, 0.04); color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background var(--dur-2), border-color var(--dur-2), transform var(--dur-2) var(--ease-out); }
+.theme-toggle:hover { border-color: var(--accent-soft); background: var(--surface-2); }
+.theme-toggle:active { transform: scale(0.94); }
+.theme-toggle svg { grid-area: 1 / 1; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: opacity var(--dur-2), transform var(--dur-3) var(--ease-out); }
+.theme-toggle .i-moon { opacity: 0; transform: rotate(-60deg) scale(0.6); }
+[data-theme="light"] .theme-toggle .i-sun { opacity: 0; transform: rotate(60deg) scale(0.6); }
+[data-theme="light"] .theme-toggle .i-moon { opacity: 1; transform: none; }
+[data-theme="light"] .theme-toggle { background: rgba(75, 0, 130, 0.05); }
+@media (max-width: 380px) { .brand__sub { display: none; } }

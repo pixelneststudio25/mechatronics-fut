@@ -1,0 +1,40 @@
+/* ==========================================================================
+   partner.css  -  styles used only by partner.html
+   ========================================================================== */
+.ways { display: grid; gap: var(--space-4); }
+@media (min-width: 640px) { .ways { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .ways { grid-template-columns: repeat(3, 1fr); } }
+.way { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6) var(--space-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+@media (hover: hover) { .way:hover { border-color: var(--accent-soft); transform: translateY(-3px); } }
+.way__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--r-md); background: rgba(124, 58, 237, 0.18); color: var(--accent-glow); }
+.way__icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.way h3 { font-size: var(--step-1); letter-spacing: -0.01em; }
+.way p { color: var(--text-muted); font-size: 0.95rem; }
+
+.funded { display: grid; gap: var(--space-5); align-items: center; }
+@media (min-width: 900px) { .funded { grid-template-columns: 1fr 1.4fr auto; gap: var(--space-7); } }
+.funded h2 { font-size: var(--step-2); }
+.funded p { margin-top: var(--space-2); color: var(--text-muted); font-size: 0.95rem; }
+.funders { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.funders li { padding: 0.45rem 1rem; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: var(--surface); font-size: 0.92rem; font-weight: 500; }
+.link-arrow { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 600; text-decoration: none; }
+.link-arrow svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-2) var(--ease-out); }
+.link-arrow:hover svg { transform: translateX(4px); }
+
+.enquire { display: grid; gap: var(--space-6); align-items: start; }
+@media (min-width: 960px) { .enquire { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-8); } .enquire__intro { position: sticky; top: calc(var(--header-h) + var(--space-5)); } }
+.enquire__intro h2 { margin-top: var(--space-3); font-size: var(--step-3); }
+.enquire__intro > p:last-child { margin-top: var(--space-4); color: var(--text-muted); }
+.enquire__form { padding: clamp(1.5rem, 1rem + 2.5vw, 2.5rem); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.enquire__form form { display: grid; gap: var(--space-5); }
+.enquire__form form[hidden] { display: none; }
+.enquire__form .btn { width: 100%; }
+@media (min-width: 560px) { .enquire__form .btn { width: auto; justify-self: start; } }
+
+.sent { display: grid; gap: var(--space-4); justify-items: start; padding-block: var(--space-4); }
+.sent[hidden] { display: none; }
+.sent:focus { outline: none; }
+.sent h3 { font-size: var(--step-2); }
+.sent__icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: rgba(74, 222, 128, 0.14); color: #86efac; }
+.sent__icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sent p { color: var(--text-muted); }
