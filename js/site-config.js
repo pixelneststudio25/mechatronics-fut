@@ -13,6 +13,10 @@ window.SITE = {
   phone: "", /* leave empty to hide */
   address: "Department of Mechatronics Engineering, Federal University of Technology, Minna, Niger State, Nigeria",
 
+  /* Contact form (Web3Forms). Get a free access key at https://web3forms.com by entering the
+     department email, then paste the key here. The key is meant to be public. */
+  formKey: "59daa965-974c-4ee0-adb2-6abb1b843c73",
+
   /* Main pages. `home: true` hides the link from the desktop bar (the logo already goes home). */
   nav: [
     { label: "Home", href: "/", home: true },

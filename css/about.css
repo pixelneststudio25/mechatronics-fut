@@ -1,0 +1,47 @@
+/* ==========================================================================
+   about.css  -  styles used only by about.html
+   ========================================================================== */
+.about-grid { display: grid; gap: var(--space-7); align-items: center; }
+@media (min-width: 900px) { .about-grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-8); } }
+.prose { display: grid; gap: var(--space-4); justify-items: start; }
+.prose h2 { font-size: var(--step-3); }
+.prose p { color: var(--text-muted); font-size: var(--step-0); }
+.prose p + p { margin-top: 0; }
+.cta-row { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); }
+@media (max-width: 559px) { .cta-row { width: 100%; flex-direction: column; } .cta-row .btn { width: 100%; } }
+
+.photo { margin: 0; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line-strong); background: var(--surface); box-shadow: 0 30px 80px -40px rgba(124, 58, 237, 0.55); }
+.photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.facts { display: grid; gap: var(--space-4); }
+@media (min-width: 640px) { .facts { grid-template-columns: repeat(3, 1fr); } }
+.fact { display: grid; gap: var(--space-1); padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+.fact dt { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); }
+.fact dd { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); line-height: 1.1; color: var(--accent-glow); }
+
+.intro { color: var(--text-muted); font-size: var(--step-1); max-width: 56ch; margin-bottom: var(--space-6); }
+.disciplines { display: grid; gap: var(--space-4); }
+@media (min-width: 560px) { .disciplines { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .disciplines { grid-template-columns: repeat(4, 1fr); } }
+.disc { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+@media (hover: hover) { .disc:hover { border-color: var(--accent-soft); transform: translateY(-3px); } }
+.disc__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--r-md); background: rgba(124, 58, 237, 0.18); color: var(--accent-glow); }
+.disc__icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.disc h3 { font-size: var(--step-1); letter-spacing: -0.01em; }
+.disc p { color: var(--text-muted); font-size: 0.95rem; }
+
+.vm { display: grid; gap: var(--space-5); }
+@media (min-width: 800px) { .vm { grid-template-columns: repeat(2, 1fr); } }
+.vm__card { display: grid; gap: var(--space-3); align-content: start; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); border: 1px solid var(--line-strong); border-radius: var(--r-lg); background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), transparent 65%), var(--surface); }
+.vm__card h3 { font-size: var(--step-2); }
+.vm__card p { color: var(--text-muted); font-size: var(--step-0); }
+
+.accred { display: grid; gap: var(--space-6); align-items: center; }
+@media (min-width: 900px) { .accred { grid-template-columns: 1.3fr 0.7fr; gap: var(--space-8); } }
+.accred h2 { margin-top: var(--space-3); font-size: var(--step-3); }
+.accred p { margin-top: var(--space-4); color: var(--text-muted); }
+.badges { display: grid; gap: var(--space-3); }
+.badges li { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-5); border: 1px solid var(--line-strong); border-radius: var(--r-md); background: var(--surface); font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); }
+.badges svg { flex: none; width: 28px; height: 28px; padding: 5px; border-radius: 50%; background: rgba(74, 222, 128, 0.14); fill: none; stroke: #86efac; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.note p { color: var(--text-muted); max-width: 60ch; }

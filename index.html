@@ -40,15 +40,67 @@
   <meta name="twitter:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
   <meta name="twitter:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna">
 
+  <!-- Structured data for search engines -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://mechatronics-fut.vercel.app/#department",
+      "name": "Department of Mechatronics Engineering, Federal University of Technology, Minna",
+      "alternateName": "Mechatronics Engineering, FUT Minna",
+      "url": "https://mechatronics-fut.vercel.app/",
+      "description": "The Department of Mechatronics Engineering at the Federal University of Technology, Minna, is a centre of excellence in the interdisciplinary field of mechanical, electronics, computer and control engineering.",
+      "slogan": "We think and create.",
+      "foundingDate": "2010",
+      "logo": "https://mechatronics-fut.vercel.app/android-chrome-512x512.png",
+      "image": "https://mechatronics-fut.vercel.app/images/og-image.png",
+      "parentOrganization": {
+        "@type": "CollegeOrUniversity",
+        "name": "Federal University of Technology, Minna"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minna",
+        "addressRegion": "Niger State",
+        "addressCountry": "NG"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61582289944293",
+        "https://x.com/namtesfutminna",
+        "https://www.linkedin.com/company/namtes-fut-minna-chapter/",
+        "https://www.instagram.com/futmx.mce"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mechatronics-fut.vercel.app/#website",
+      "url": "https://mechatronics-fut.vercel.app/",
+      "name": "Mechatronics Engineering, FUT Minna",
+      "inLanguage": "en-NG",
+      "publisher": {
+        "@id": "https://mechatronics-fut.vercel.app/#department"
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/tokens.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/posts.css">
   <link rel="stylesheet" href="/css/home.css">
 
   <script src="/js/site-config.js"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/supabase-lite.js"></script>
+  <script src="/js/posts-ui.js"></script>
   <script src="/js/components.js" defer></script>
+  <script src="/js/home-news.js" defer></script>
 </head>
 <body>
 
@@ -59,43 +111,58 @@
     <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero__inner">
-        <div>
+        <div class="hero__copy">
+          <a class="hero__chip" href="/news-events.html">
+            <span class="hero__tag">Latest</span>
+            News and events
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
           <p class="eyebrow">Department of Mechatronics Engineering</p>
           <h1 id="hero-title">We think <em>and create.</em></h1>
-          <p class="hero__lead">Courses, staff, student projects and updates from Mechatronics Engineering at the Federal University of Technology, Minna.</p>
+          <p class="hero__lead">Where mechanics, electronics and code meet. Courses, staff, student projects and news from FUT Minna.</p>
           <div class="hero__actions">
             <a class="btn" href="/academics.html">Browse courses</a>
-            <a class="btn btn--secondary" href="/contact.html">Partner with us</a>
+            <a class="btn btn--secondary" href="/contact.html">For industry partners</a>
           </div>
         </div>
 
-        <div class="hero__art" aria-hidden="true">
-          <svg viewBox="0 0 520 440" focusable="false">
-            <g>
-              <path class="trace" d="M20 80 H150 L190 120 H300 L340 80 H500"/>
-              <path class="trace" d="M20 180 H110 L150 220 H260"/>
-              <path class="trace" d="M500 180 H400 L360 220 H320"/>
-              <path class="trace" d="M20 300 H170 L210 340 H300 L340 300 H500"/>
-              <path class="trace" d="M260 150 V190 M260 250 V290 M260 330 V420"/>
-              <path class="trace" d="M120 420 V360 L150 330 H210"/>
-              <path class="trace" d="M400 420 V370 L370 340 H340"/>
-            </g>
-            <g>
-              <path class="trace trace--live" d="M20 80 H150 L190 120 H300 L340 80 H500"/>
-              <path class="trace trace--live" d="M20 300 H170 L210 340 H300 L340 300 H500"/>
-              <path class="trace trace--live" d="M20 180 H110 L150 220 H260"/>
-              <path class="trace trace--live" d="M500 180 H400 L360 220 H320"/>
-            </g>
-            <rect class="chip" x="200" y="150" width="120" height="100" rx="10"/>
-            <text class="chip-label" x="260" y="206" text-anchor="middle">MCU</text>
-            <g>
-              <circle class="node" cx="20" cy="80" r="5"/><circle class="node" cx="500" cy="80" r="5"/>
-              <circle class="node" cx="20" cy="180" r="5"/><circle class="node" cx="500" cy="180" r="5"/>
-              <circle class="node" cx="20" cy="300" r="5"/><circle class="node" cx="500" cy="300" r="5"/>
-              <circle class="node" cx="260" cy="420" r="5"/><circle class="node" cx="120" cy="420" r="5"/><circle class="node" cx="400" cy="420" r="5"/>
-            </g>
-          </svg>
-        </div>
+        <figure class="hero__visual">
+          <div class="hero__art" aria-hidden="true">
+            <svg viewBox="0 0 520 440" focusable="false">
+              <g>
+                <path class="trace" d="M20 80 H150 L190 120 H300 L340 80 H500"/>
+                <path class="trace" d="M20 180 H110 L150 220 H260"/>
+                <path class="trace" d="M500 180 H400 L360 220 H320"/>
+                <path class="trace" d="M20 300 H170 L210 340 H300 L340 300 H500"/>
+                <path class="trace" d="M260 150 V190 M260 250 V290 M260 330 V420"/>
+                <path class="trace" d="M120 420 V360 L150 330 H210"/>
+                <path class="trace" d="M400 420 V370 L370 340 H340"/>
+              </g>
+              <g>
+                <path class="trace trace--live" d="M20 80 H150 L190 120 H300 L340 80 H500"/>
+                <path class="trace trace--live" d="M20 300 H170 L210 340 H300 L340 300 H500"/>
+                <path class="trace trace--live" d="M20 180 H110 L150 220 H260"/>
+                <path class="trace trace--live" d="M500 180 H400 L360 220 H320"/>
+              </g>
+              <g>
+                <circle class="node" cx="20" cy="80" r="5"/><circle class="node" cx="500" cy="80" r="5"/>
+                <circle class="node" cx="20" cy="180" r="5"/><circle class="node" cx="500" cy="180" r="5"/>
+                <circle class="node" cx="20" cy="300" r="5"/><circle class="node" cx="500" cy="300" r="5"/>
+                <circle class="node" cx="260" cy="420" r="5"/><circle class="node" cx="120" cy="420" r="5"/><circle class="node" cx="400" cy="420" r="5"/>
+              </g>
+            </svg>
+          </div>
+          <div class="hero__photo">
+            <img src="/images/projects/waste-disposal-robot.webp" alt="Student-built waste disposal robot" width="800" height="600" fetchpriority="high" decoding="async">
+            <figcaption><span>Built by students</span>Waste disposal robot</figcaption>
+          </div>
+        </figure>
+
+        <ul class="hero__stats">
+          <li><strong>2010</strong><span>Year established</span></li>
+          <li><strong>5</strong><span>Year programme</span></li>
+          <li><strong>4</strong><span>Core disciplines</span></li>
+        </ul>
       </div>
     </section>
 
@@ -147,10 +214,12 @@
           </div>
           <a class="link-arrow" href="/news-events.html">All news and events <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
-        <div class="empty">
-          <span class="empty__tag">Nothing scheduled yet</span>
-          <h3>No announcements right now</h3>
-          <p>New announcements and upcoming events will appear here as soon as they are posted.</p>
+        <div id="home-feed" aria-live="polite">
+          <div class="empty">
+            <span class="empty__tag">Nothing scheduled yet</span>
+            <h3>No announcements right now</h3>
+            <p>New announcements and upcoming events will appear here as soon as they are posted.</p>
+          </div>
         </div>
       </div>
     </section>

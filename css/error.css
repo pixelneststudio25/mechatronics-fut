@@ -1,0 +1,39 @@
+/* ==========================================================================
+   error.css  -  styles for 404.html
+   ========================================================================== */
+.lost {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: calc(var(--header-h) * -1);
+  min-height: min(100svh, 860px); display: grid; align-items: center;
+  padding-block: calc(var(--header-h) + var(--space-7)) var(--space-8);
+  background:
+    radial-gradient(48rem 30rem at 85% 0%, rgba(124, 58, 237, 0.28), transparent 62%),
+    radial-gradient(36rem 26rem at 0% 100%, rgba(75, 0, 130, 0.5), transparent 62%),
+    var(--bg-0);
+}
+.lost::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 20%, #000, transparent 70%);
+  mask-image: radial-gradient(ellipse at 70% 20%, #000, transparent 70%);
+  opacity: 0.45;
+}
+.lost__inner { display: grid; gap: var(--space-4); justify-items: start; }
+.lost__code {
+  font-family: var(--font-mono); font-weight: 500; line-height: 0.9; letter-spacing: -0.04em;
+  font-size: clamp(5rem, 3rem + 14vw, 11rem);
+  background: linear-gradient(180deg, var(--accent-glow), var(--accent) 55%, var(--brand) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.lost h1 { font-size: clamp(1.9rem, 1.2rem + 3vw, 3rem); max-width: 18ch; }
+.lost__text { color: var(--text-muted); font-size: var(--step-1); max-width: 44ch; }
+.lost__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+@media (max-width: 559px) { .lost__actions { width: 100%; flex-direction: column; } .lost__actions .btn { width: 100%; } }
+.lost__links { display: grid; gap: var(--space-3); width: 100%; margin-top: var(--space-5); }
+@media (min-width: 640px) { .lost__links { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .lost__links { grid-template-columns: repeat(4, 1fr); } }
+.lost__links a { display: grid; gap: 2px; padding: var(--space-4) var(--space-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); color: var(--text); text-decoration: none; transition: border-color var(--dur-2), background var(--dur-2); }
+.lost__links a:hover { border-color: var(--accent-soft); background: var(--surface-2); color: var(--text); }
+.lost__links strong { font-family: var(--font-display); font-size: var(--step-0); }
+.lost__links span { color: var(--text-muted); font-size: 0.88rem; }

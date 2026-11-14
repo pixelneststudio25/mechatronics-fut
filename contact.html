@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0A0714">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- SEO -->
+  <title>Contact | Mechatronics Engineering, FUT Minna</title>
+  <meta name="description" content="Contact the Department of Mechatronics Engineering, FUT Minna: questions from students, prospective students, industry partners and sponsors.">
+  <link rel="canonical" href="https://mechatronics-fut.vercel.app/contact.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mechatronics Engineering, FUT Minna">
+  <meta property="og:locale" content="en_NG">
+  <meta property="og:title" content="Contact | Mechatronics Engineering, FUT Minna">
+  <meta property="og:description" content="Contact the Department of Mechatronics Engineering at FUT Minna.">
+  <meta property="og:url" content="https://mechatronics-fut.vercel.app/contact.html">
+  <meta property="og:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna, with the department's gear and M mark on a deep purple background">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact | Mechatronics Engineering, FUT Minna">
+  <meta name="twitter:description" content="Contact the Department of Mechatronics Engineering at FUT Minna.">
+  <meta name="twitter:image" content="https://mechatronics-fut.vercel.app/images/og-image.png">
+  <meta name="twitter:image:alt" content="Mechatronics Engineering, Federal University of Technology, Minna">
+
+  <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/contact.css">
+
+  <script src="/js/site-config.js"></script>
+  <script src="/js/components.js" defer></script>
+  <script src="/js/contact.js" defer></script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Get in touch</p>
+        <h1>Contact</h1>
+        <p class="lead">Questions from students, prospective students, industry partners and sponsors are all welcome.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact">
+
+        <div class="contact__form" id="form-card">
+          <form id="contact-form" novalidate>
+            <h2>Send a message</h2>
+
+            <div class="field">
+              <label for="c-name">Your name</label>
+              <input id="c-name" name="name" autocomplete="name" maxlength="100" required aria-describedby="e-name">
+              <p class="field-error" id="e-name"></p>
+            </div>
+            <div class="field">
+              <label for="c-email">Email address</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" maxlength="150" required aria-describedby="e-email">
+              <p class="field-error" id="e-email"></p>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="c-role">I am a</label>
+                <select id="c-role" name="role">
+                  <option>Current student</option>
+                  <option>Prospective student</option>
+                  <option>Industry or sponsor</option>
+                  <option>Alumnus or alumna</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="c-topic">Topic</label>
+                <select id="c-topic" name="topic">
+                  <option>General enquiry</option>
+                  <option>Admissions</option>
+                  <option>Partnership or sponsorship</option>
+                  <option>Student matters</option>
+                  <option>Report a website error</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="c-message">Message</label>
+              <textarea id="c-message" name="message" rows="6" maxlength="3000" required aria-describedby="e-message"></textarea>
+              <p class="field-error" id="e-message"></p>
+            </div>
+
+            <!-- Spam trap: real visitors never see or tick this -->
+            <div class="trap" aria-hidden="true"><label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+
+            <p class="form-error" id="form-error" role="alert"></p>
+            <button class="btn" type="submit" id="send">Send message</button>
+          </form>
+
+          <div class="sent" id="sent" hidden tabindex="-1">
+            <div class="sent__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+            <h2>Message sent</h2>
+            <p>Thank you. Your message has been delivered to the department.</p>
+            <button class="btn btn--secondary" type="button" id="again">Send another message</button>
+          </div>
+        </div>
+
+        <aside class="contact__side" aria-label="Contact details">
+          <div class="card" id="details"></div>
+          <div class="card card--accent">
+            <h2>Industry and sponsors</h2>
+            <p>Interested in sponsoring a project, offering internships or collaborating with our students and staff? Choose "Partnership or sponsorship" as the topic.</p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>

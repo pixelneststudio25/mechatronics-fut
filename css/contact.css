@@ -1,0 +1,29 @@
+/* ==========================================================================
+   contact.css  -  styles used only by contact.html
+   ========================================================================== */
+.contact { display: grid; gap: var(--space-6); align-items: start; }
+@media (min-width: 960px) { .contact { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-7); } }
+
+.contact__form { padding: clamp(1.5rem, 1rem + 2.5vw, 2.5rem); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.contact__form form { display: grid; gap: var(--space-5); }
+.contact__form h2, .card h2 { font-size: var(--step-2); }
+.contact__form .btn { width: 100%; }
+@media (min-width: 560px) { .contact__form .btn { width: auto; justify-self: start; } }
+
+.sent { display: grid; gap: var(--space-4); justify-items: start; padding-block: var(--space-4); }
+.sent[hidden] { display: none; }
+.sent:focus { outline: none; }
+.sent__icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: rgba(74, 222, 128, 0.14); color: #86efac; }
+.sent__icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.sent p { color: var(--text-muted); }
+
+.contact__side { display: grid; gap: var(--space-5); }
+.card { display: grid; gap: var(--space-4); padding: var(--space-6) var(--space-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.card p { color: var(--text-muted); font-size: 0.95rem; }
+.card--accent { background: linear-gradient(135deg, var(--brand-deep), var(--bg-1)); border-color: var(--line-strong); }
+.detail { display: grid; gap: 2px; }
+.detail dt { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); }
+.detail dd { margin: 0; color: var(--text); overflow-wrap: anywhere; }
+.detail dd a { color: var(--accent-glow); }
+.links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+.contact__form form[hidden] { display: none; }
